@@ -75,7 +75,6 @@ public class SpiCglibProxy<T extends ISpiProvider> implements MethodInterceptor 
         if (ISpiServiceProvider.class.isAssignableFrom(spiClass)) {
             return _invokeService(filterSpiImplMap, spiConfigMap, methodProxy, args);
         }
-
         log.warn("SpiCglibProxy.invoke can not find real spi class invoke proxy function for class:{}",this.spiClass.getSimpleName());
         return Collections.emptyList();
     }
