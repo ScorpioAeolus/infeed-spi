@@ -48,7 +48,7 @@ public class SpiCglibProxy<T extends ISpiProvider> implements MethodInterceptor 
         Map<String, ? extends ISpiProvider> spiImplMap = ISpiContainer.DEFAULT_INSTANCE.lookup(spiClass);
 
         if (MapUtil.isEmpty(spiImplMap)) {
-            // TODO log warn: can not find any spi impl for class ${spiClass}
+            log.warn("SpiCglibProxy.invoke can not find any spi impl for class:{}",this.spiClass.getSimpleName());
             return Collections.emptyList();
         }
 
@@ -76,7 +76,7 @@ public class SpiCglibProxy<T extends ISpiProvider> implements MethodInterceptor 
             return _invokeService(filterSpiImplMap, spiConfigMap, methodProxy, args);
         }
 
-        // TODO log warn: can not find real spi class invoke proxy function
+        log.warn("SpiCglibProxy.invoke can not find real spi class invoke proxy function for class:{}",this.spiClass.getSimpleName());
         return Collections.emptyList();
     }
 
