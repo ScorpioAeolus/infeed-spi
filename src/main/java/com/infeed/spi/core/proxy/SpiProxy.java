@@ -10,16 +10,23 @@ import com.infeed.spi.api.ISpiServiceProvider;
 import com.infeed.spi.api.SpiConfig;
 import com.infeed.spi.common.CollectionUtil;
 import com.infeed.spi.common.MapUtil;
+import com.infeed.spi.common.SpiContext;
+import com.infeed.spi.core.IInvoke;
+import com.infeed.spi.core.concurrent.CustomExecutorService;
+import com.infeed.spi.core.concurrent.ICallbackOperate;
+import com.infeed.spi.core.concurrent.IRetrieve;
 import com.infeed.spi.core.container.ISpiContainer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -32,7 +39,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @SuppressWarnings({"all"})
-public class SpiProxy<T extends ISpiProvider> implements InvocationHandler {
+public class SpiProxy<T extends ISpiProvider> implements InvocationHandler, CustomExecutorService {
 
     private final Class<T> spiClass;
 
@@ -142,6 +149,12 @@ public class SpiProxy<T extends ISpiProvider> implements InvocationHandler {
     private Object _invokeService(Map<String, ? extends ISpiProvider> spiImplMap, Map<String, SpiConfig> spiConfigMap, Method method, Object[] args) throws Throwable {
         List compositeResult = Lists.newArrayList();
 
+        Object context = null == args ? null : args[0];
+        boolean concurrent = false;
+        if(context instanceof SpiContext) {
+            concurrent = ((SpiContext) context).concurrent();
+        }
+        List<IInvoke> invokeList = new ArrayList<>();
         for (Map.Entry<String, ? extends ISpiProvider> entry : spiImplMap.entrySet()) {
 
             String spiName = entry.getKey();
@@ -149,26 +162,73 @@ public class SpiProxy<T extends ISpiProvider> implements InvocationHandler {
             ISpiServiceProvider spiImpl = (ISpiServiceProvider) entry.getValue();
 
             if (args != null && spiImpl.condition(args[0])) {
-
-                List<?> result;
-
-                try {
-                    result = (List<?>) method.invoke(spiImpl, args);
-                } catch (InvocationTargetException e) {
-                    throw e.getTargetException();
-                }
-
-                if (CollectionUtil.isNotEmpty(result)) {
-                    compositeResult.addAll(result);
-                }
-
+                invokeList.add(new IInvoke() {
+                    @Override
+                    public List<?> doInvoke() throws Throwable {
+                        try {
+                            return (List<?>) method.invoke(spiImpl, args);
+                        } catch (InvocationTargetException e) {
+                            throw e.getTargetException();
+                        }
+                    }
+                });
+                //extracted(method, args, spiImpl, compositeResult);
                 if (spiConfigMap.get(spiName).isMutex()) {
                     break;
                 }
             }
         }
 
+        //主动设置了并发执行并且满足条件的spi实现有多个,执行并发调用
+        if(concurrent && CollectionUtil.sizeOf(invokeList) > 1) {
+            CountDownLatch countDown = new CountDownLatch(CollectionUtil.sizeOf(invokeList));
+            for (IInvoke iInvoke : invokeList) {
+                this.submitWithCallback(new IRetrieve<List<?>>() {
+                    @Override
+                    public List<?> retrieve() {
+                        try {
+                            return iInvoke.doInvoke();
+                        } catch (Throwable e) {
+                            log.error("doInvoke occur error", e);
+                            return null;
+                        }
+                    }
+                }, new ICallbackOperate<List<?>, List>() {
+                    @Override
+                    public void operate(List<?> result, List list) {
+                        if (CollectionUtil.isNotEmpty(result)) {
+                            list.addAll(result);
+                        }
+                    }
+                },compositeResult,countDown);
+            }
+            try {
+                countDown.await();
+            } catch (InterruptedException e) {
+                log.error("SpiProxy._invokeService concurrent execute occur error",e);
+            }
+        } else {
+            for (IInvoke iInvoke : invokeList) {
+                List<?> result = iInvoke.doInvoke();
+                if (CollectionUtil.isNotEmpty(result)) {
+                    compositeResult.addAll(result);
+                }
+            }
+        }
         return compositeResult;
+    }
+
+    private static void extracted(Method method, Object[] args, ISpiServiceProvider spiImpl, List compositeResult) throws Throwable {
+        List<?> result;
+        try {
+            result = (List<?>) method.invoke(spiImpl, args);
+        } catch (InvocationTargetException e) {
+            throw e.getTargetException();
+        }
+
+        if (CollectionUtil.isNotEmpty(result)) {
+            compositeResult.addAll(result);
+        }
     }
 
     private <T extends ISpiProvider> Map<String, T> filterAndSortSpiImpl(Map<String, T> spiImplMap, List<SpiConfig> spiConfigList) {
