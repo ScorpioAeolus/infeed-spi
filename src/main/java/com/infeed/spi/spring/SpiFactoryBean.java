@@ -14,7 +14,7 @@ import org.springframework.context.annotation.AdviceMode;
  * </ul>
  *
  * @author typhoon
- * @date 2024-08-15 20:06 Thursday
+ * @since 2024-08-15 20:06 Thursday
  */
 @SuppressWarnings({"rawtypes", "unused"})
 public class SpiFactoryBean<T extends ISpiProvider> implements FactoryBean<T>, InitializingBean {

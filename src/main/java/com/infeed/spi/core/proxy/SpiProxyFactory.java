@@ -9,7 +9,7 @@ import java.lang.reflect.Proxy;
  * SPI代理类工厂实现
  *
  * @author typhoon
- * @date 2024-08-15 20:08 Thursday
+ * @since 2024-08-15 20:08 Thursday
  */
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class SpiProxyFactory {

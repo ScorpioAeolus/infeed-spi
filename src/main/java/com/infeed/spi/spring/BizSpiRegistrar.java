@@ -15,7 +15,7 @@ import java.util.Map;
  * 应用启动时扫描@BizSpi标识的类，将其注册到SPI容器
  *
  * @author typhoon
- * @date 2024-08-15 19:52 Thursday
+ * @since 2024-08-15 19:52 Thursday
  */
 @Slf4j
 public class BizSpiRegistrar implements ApplicationContextAware {

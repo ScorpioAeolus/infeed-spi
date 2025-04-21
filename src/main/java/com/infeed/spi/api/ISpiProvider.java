@@ -4,7 +4,7 @@ package com.infeed.spi.api;
  * SpiProvider接口定义
  *
  * @author typhoon
- * @date 2024-08-15 20:13 Thursday
+ * @since 2024-08-15 20:13 Thursday
  */
 public interface ISpiProvider<In, Out> {
 

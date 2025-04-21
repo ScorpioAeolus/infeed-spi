@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  *
  *
  * @author typhoon
- * @date 2020-11-16 17:03 Monday
+ * @since 2020-11-16 17:03 Monday
  * @since V1.0.0
  */
 public class CollectionUtil {
@@ -45,10 +45,10 @@ public class CollectionUtil {
      * </ul>
      *
      * @author typhoon
-     * @param source
-     * @param target
-     * @param <T>
-     * @return
+     * @param source source
+     * @param target target
+     * @param <T> data type
+     * @return collection
      */
     public static final <T> Collection<T> diffSet(Collection<T> source,Collection<T> target) {
         if(isEmpty(source)) {
@@ -66,10 +66,10 @@ public class CollectionUtil {
      * 获取两个集合的交集
      *
      * @author typhoon
-     * @param source
-     * @param target
-     * @param <T>
-     * @return
+     * @param source source
+     * @param target target
+     * @param <T> data type
+     * @return collection
      */
     public static final <T> Collection<T> intersect(Collection<T> source,Collection<T> target) {
         if(isEmpty(source) || isEmpty(target)) {
@@ -86,10 +86,10 @@ public class CollectionUtil {
      *
      *
      * @author typhoon
-     * @param source
-     * @param target
-     * @param <T>
-     * @return
+     * @param source source
+     * @param target target
+     * @param <T> data type
+     * @return collection
      */
     public static final <T> Collection<T> union(Collection<T> source,Collection<T> target) {
         if(isEmpty(source)) {

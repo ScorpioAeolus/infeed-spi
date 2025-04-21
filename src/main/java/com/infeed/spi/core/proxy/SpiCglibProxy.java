@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * SPI代理类
  *
  * @author typhoon
- * @date 2024-08-15 19:56 Thursday
+ * @since 2024-08-15 19:56 Thursday
  */
 @Slf4j
 @SuppressWarnings({"all"})

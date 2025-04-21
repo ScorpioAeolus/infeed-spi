@@ -6,7 +6,7 @@ import java.util.List;
  * ISpiServiceProvider接口定义
  *
  * @author typhoon
- * @date 2024-08-15 20:14 Thursday
+ * @since 2024-08-15 20:14 Thursday
  */
 public interface ISpiServiceProvider<In, Out> extends ISpiProvider<In, Out> {
     /**

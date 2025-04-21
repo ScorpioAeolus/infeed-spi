@@ -47,12 +47,13 @@ public interface CustomExecutorService {
     /**
      * 提交带带回调的多线程操作
      *
-     * @param executorService
-     * @param retrieve
-     * @param operate
-     * @param r
-     * @param <T>
-     * @param <R>
+     * @param executorService thread pool
+     * @param retrieve buzz
+     * @param operate after buzz
+     * @param r return
+     * @param <T> return type
+     * @param <R> target operate data
+     * @param countDown  thread count
      */
     default <T,R> void submitWithCallback(ListeningExecutorService executorService, IRetrieve<T> retrieve, ICallbackOperate<T,R> operate, R r, CountDownLatch countDown) {
         ListenableFuture<T> future = executorService.submit(retrieve::retrieve);
@@ -80,12 +81,12 @@ public interface CustomExecutorService {
     /**
      * 提交带回调的多线程操作
      *
-     * @param retrieve
-     * @param operate
-     * @param r
-     * @param countDown
-     * @param <T>
-     * @param <R>
+     * @param retrieve buzz
+     * @param operate after buzz
+     * @param r return
+     * @param countDown thread count
+     * @param <T> target  type
+     * @param <R> return type
      */
     default <T,R> void submitWithCallback(IRetrieve<T> retrieve, ICallbackOperate<T,R> operate, R r, CountDownLatch countDown) {
         this.submitWithCallback(defaultExecutorService,retrieve,operate,r,countDown);

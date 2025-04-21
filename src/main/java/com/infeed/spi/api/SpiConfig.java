@@ -9,7 +9,7 @@ import java.io.Serializable;
  * spi配置
  *
  * @author typhoon
- * @date 2024-08-15 Thursday
+ * @since 2024-08-15 Thursday
  */
 @Data
 @EqualsAndHashCode(exclude = {"mutex", "priority"})

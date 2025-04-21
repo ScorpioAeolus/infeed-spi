@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  * SPI引擎启动注解
  *
  * @author typhoon
- * @date 2024-08-15 19:49 Thursday
+ * @since 2024-08-15 19:49 Thursday
  */
 @Documented
 @Target(ElementType.TYPE)
@@ -26,13 +26,13 @@ public @interface EnableInfSpiEngine {
     /**
      * SPI扫描路径
      *
-     * @return
+     * @return string array
      */
     String[] scanBasePackages();
 
     /**
      * 生成代理模式;默认jdk动态代理
-     * @return
+     * @return AdviceMode
      */
     AdviceMode mode() default AdviceMode.PROXY;
 }

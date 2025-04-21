@@ -7,7 +7,7 @@ import com.infeed.spi.api.ISpiProvider;
  * spi类型过滤器
  *
  * @author typhoon
- * @date 2024-08-15 20:05 Thursday
+ * @since 2024-08-15 20:05 Thursday
  */
 public class ISpiProviderClassTypeFilter implements IClassTypeFilter {
 

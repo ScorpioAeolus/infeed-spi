@@ -14,7 +14,7 @@ public interface SpiContext {
      * ,如果不实现,就认为是不需要并发执行,如果实现了,再做后续的concurrent值判断是否并发执行
      *
      *
-     * @return
+     * @return boolean
      */
     default boolean concurrent() {
         return false;

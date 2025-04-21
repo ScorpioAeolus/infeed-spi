@@ -14,7 +14,7 @@ import java.util.Map;
  * 应用启动时扫描@SpiFunctionPoint标识的类，将其注册成代理Bean
  *
  * @author typhoon
- * @date 2024-08-15 Thursday
+ * @since 2024-08-15 Thursday
  */
 @Slf4j
 public class SpiFunctionPointRegistrar implements ImportBeanDefinitionRegistrar {

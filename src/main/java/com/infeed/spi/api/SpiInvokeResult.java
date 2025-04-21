@@ -8,7 +8,7 @@ import java.util.List;
  * spi接口执行结果
  *
  * @author typhoon
- * @date 2024-08-15 20:15 Thursday
+ * @since 2024-08-15 20:15 Thursday
  */
 @Data
 public class SpiInvokeResult<T, R> {

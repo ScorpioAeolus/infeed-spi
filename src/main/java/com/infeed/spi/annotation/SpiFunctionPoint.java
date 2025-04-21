@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * 业务SPI功能点标记注解
  *
  * @author typhoon
- * @date 2024-08-15 20:16 Thursday
+ * @since 2024-08-15 20:16 Thursday
  */
 @Inherited
 @Target(ElementType.TYPE)
@@ -19,17 +19,29 @@ public @interface SpiFunctionPoint {
 
     /**
      * 注入Bean时推荐使用 @Resource(name = "${spiBeanName}")
+     *
+     * @return  string
      */
     String name() default "";
 
+    /**
+     * scope
+     *
+     * @return string
+     */
     String scope() default "logic";
 
+    /**
+     * description
+     *
+     * @return string
+     */
     String desc() default "";
 
     /**
      * 组件所有者
      *
-     * @return
+     * @return string
      */
     String owner() default "";
 }

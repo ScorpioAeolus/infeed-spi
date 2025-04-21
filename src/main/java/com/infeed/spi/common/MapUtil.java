@@ -7,7 +7,7 @@ import java.util.Map;
  * map操作工具类
  *
  * @author typhoon
- * @date 2024-08-15 19:48 Thursday
+ * @since 2024-08-15 19:48 Thursday
  * @since V1.0.0
  */
 public class MapUtil {

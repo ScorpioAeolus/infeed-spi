@@ -12,7 +12,7 @@ import java.util.Map;
  * SPI容器(接口定义)
  *
  * @author typhoon
- * @date 2024-08-15 19:55 Thursday
+ * @since 2024-08-15 19:55 Thursday
  */
 @SuppressWarnings("rawtypes")
 public interface ISpiContainer {
@@ -37,8 +37,8 @@ public interface ISpiContainer {
 
     /**
      * 根据spi定义name 获取对应的class
-     * @param spiClassName
-     * @return
+     * @param spiClassName spi class name
+     * @return ISpiProvider
      */
     Class<? extends ISpiProvider> getSpiClassByName(String spiClassName);
 
