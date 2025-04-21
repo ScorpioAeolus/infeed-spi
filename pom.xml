@@ -10,7 +10,7 @@
 
   <groupId>com.infeed.spi</groupId>
   <artifactId>infeed-spi</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0.RELEASE</version>
   <packaging>jar</packaging>
 
   <name>infeed-spi</name>
