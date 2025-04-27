@@ -10,7 +10,7 @@
 
   <groupId>io.github.scorpioaeolus</groupId>
   <artifactId>infeed-spi</artifactId>
-  <version>1.0.0.RELEASE</version>
+  <version>1.0.1.RELEASE</version>
   <packaging>jar</packaging>
 
   <name>infeed-spi</name>
