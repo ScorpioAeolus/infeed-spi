@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
  * 日志管理抽象
  *
  * @author typhoon
- * @date 2025-04-27 19:29 Sunday
+ * @since  2025-04-27 19:29 Sunday
  **/
 public interface ILogInject {
 
