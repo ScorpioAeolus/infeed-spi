@@ -1,8 +1,8 @@
 package com.infeed.spi.spring;
 
 import com.infeed.spi.annotation.EnableInfSpiEngine;
+import com.infeed.spi.common.ILogInject;
 import com.infeed.spi.spring.scanner.SpiFunctionPointScanner;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -16,8 +16,7 @@ import java.util.Map;
  * @author typhoon
  * @since 2024-08-15 Thursday
  */
-@Slf4j
-public class SpiFunctionPointRegistrar implements ImportBeanDefinitionRegistrar {
+public class SpiFunctionPointRegistrar implements ImportBeanDefinitionRegistrar, ILogInject {
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {

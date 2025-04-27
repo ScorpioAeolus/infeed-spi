@@ -2,8 +2,8 @@ package com.infeed.spi.spring.scanner;
 
 import com.google.common.collect.Sets;
 import com.infeed.spi.annotation.SpiFunctionPoint;
+import com.infeed.spi.common.ILogInject;
 import com.infeed.spi.spring.BeanRegisterUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.AdviceMode;
@@ -18,8 +18,7 @@ import java.util.Set;
  * @author typhoon
  * @since 2024-08-15 19:51 Thursday
  */
-@Slf4j
-public class SpiFunctionPointScanner {
+public class SpiFunctionPointScanner implements ILogInject {
 
     private ClassLoader classLoader;
 

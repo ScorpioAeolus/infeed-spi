@@ -7,8 +7,8 @@ import com.infeed.spi.annotation.SpiFunctionPoint;
 import com.infeed.spi.api.ISpiProvider;
 import com.infeed.spi.api.SpiConfig;
 import com.infeed.spi.common.CollectionUtil;
+import com.infeed.spi.common.ILogInject;
 import com.infeed.spi.common.MapUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.AopUtils;
 
 import java.util.Collections;
@@ -23,9 +23,8 @@ import java.util.stream.Collectors;
  * @author typhoon
  * @since 2024-08-15 19:54 Thursday
  */
-@Slf4j
 @SuppressWarnings("rawtypes")
-public class DefaultSpiContainer implements ISpiContainer {
+public class DefaultSpiContainer implements ISpiContainer, ILogInject {
 
     // SPI容器，应用启动时初始化容器
     private static final Map<Class<? extends ISpiProvider>, Map<String, ISpiProvider>> container = Maps.newHashMap();

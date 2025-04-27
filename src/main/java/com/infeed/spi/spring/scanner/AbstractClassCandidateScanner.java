@@ -3,7 +3,6 @@ package com.infeed.spi.spring.scanner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.infeed.spi.common.CollectionUtil;
-import lombok.Getter;
 
 import java.util.List;
 import java.util.Set;
@@ -14,12 +13,19 @@ import java.util.Set;
  * @author typhoon
  * @since 2024-08-15 20:00 Thursday
  */
-@Getter
 public abstract class AbstractClassCandidateScanner implements IClassCandidateScanner {
 
     private List<ClassLoader> classLoaders;
 
     private List<IClassTypeFilter> classTypeFilters;
+
+    public List<ClassLoader> getClassLoaders() {
+        return classLoaders;
+    }
+
+    public List<IClassTypeFilter> getClassTypeFilters() {
+        return classTypeFilters;
+    }
 
     public void addClassLoader(ClassLoader classLoader) {
         if (classLoader == null) {

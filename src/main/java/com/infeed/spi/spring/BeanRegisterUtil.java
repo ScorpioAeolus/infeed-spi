@@ -1,7 +1,7 @@
 package com.infeed.spi.spring;
 
 import com.infeed.spi.annotation.SpiFunctionPoint;
-import lombok.extern.slf4j.Slf4j;
+import com.infeed.spi.common.ILogInject;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -20,8 +20,7 @@ import java.util.Set;
  * @author typhoon
  * @since 2024-08-15 20:06 Thursday
  */
-@Slf4j
-public class BeanRegisterUtil {
+public class BeanRegisterUtil implements ILogInject {
 
     public static void registerBeanDefinitions(Set<BeanDefinitionHolder> beanDefHolders, BeanDefinitionRegistry registry) {
         if (CollectionUtils.isEmpty(beanDefHolders)) {

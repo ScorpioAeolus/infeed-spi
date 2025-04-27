@@ -3,7 +3,7 @@ package com.infeed.spi.core.container;
 import com.infeed.spi.annotation.SpiFunctionPoint;
 import com.infeed.spi.api.ISpiProvider;
 import com.infeed.spi.common.CollectionUtil;
-import lombok.extern.slf4j.Slf4j;
+import com.infeed.spi.common.ILogInject;
 import org.springframework.aop.support.AopUtils;
 
 import java.util.Collection;
@@ -14,9 +14,8 @@ import java.util.Collection;
  * @author typhoon
  * @since 2024-08-15 19:53 Thursday
  */
-@Slf4j
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class SpiRegister {
+public class SpiRegister implements ILogInject {
 
     private ISpiContainer container;
 

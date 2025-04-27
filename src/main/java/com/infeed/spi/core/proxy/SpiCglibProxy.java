@@ -8,9 +8,9 @@ import com.infeed.spi.api.ISpiProvider;
 import com.infeed.spi.api.ISpiServiceProvider;
 import com.infeed.spi.api.SpiConfig;
 import com.infeed.spi.common.CollectionUtil;
+import com.infeed.spi.common.ILogInject;
 import com.infeed.spi.common.MapUtil;
 import com.infeed.spi.core.container.ISpiContainer;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
 
@@ -29,9 +29,8 @@ import java.util.stream.Collectors;
  * @author typhoon
  * @since 2024-08-15 19:56 Thursday
  */
-@Slf4j
 @SuppressWarnings({"all"})
-public class SpiCglibProxy<T extends ISpiProvider> implements MethodInterceptor {
+public class SpiCglibProxy<T extends ISpiProvider> implements MethodInterceptor, ILogInject {
 
     private final Class<T> spiClass;
 

@@ -1,10 +1,10 @@
 package com.infeed.spi.spring;
 
 import com.infeed.spi.annotation.BizSpi;
+import com.infeed.spi.common.ILogInject;
 import com.infeed.spi.common.MapUtil;
 import com.infeed.spi.core.container.ISpiContainer;
 import com.infeed.spi.core.container.SpiRegister;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -17,8 +17,7 @@ import java.util.Map;
  * @author typhoon
  * @since 2024-08-15 19:52 Thursday
  */
-@Slf4j
-public class BizSpiRegistrar implements ApplicationContextAware {
+public class BizSpiRegistrar implements ApplicationContextAware, ILogInject {
 
     // 默认的SPI容器实现类
     private final ISpiContainer container = ISpiContainer.DEFAULT_INSTANCE;

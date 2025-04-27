@@ -9,6 +9,7 @@ import com.infeed.spi.api.ISpiProvider;
 import com.infeed.spi.api.ISpiServiceProvider;
 import com.infeed.spi.api.SpiConfig;
 import com.infeed.spi.common.CollectionUtil;
+import com.infeed.spi.common.ILogInject;
 import com.infeed.spi.common.MapUtil;
 import com.infeed.spi.common.SpiContext;
 import com.infeed.spi.core.IInvoke;
@@ -16,7 +17,6 @@ import com.infeed.spi.core.concurrent.CustomExecutorService;
 import com.infeed.spi.core.concurrent.ICallbackOperate;
 import com.infeed.spi.core.concurrent.IRetrieve;
 import com.infeed.spi.core.container.ISpiContainer;
-import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -37,9 +37,8 @@ import java.util.stream.Collectors;
  * @since 2024-08-15 19:58 Thursday
  *
  */
-@Slf4j
 @SuppressWarnings({"all"})
-public class SpiProxy<T extends ISpiProvider> implements InvocationHandler, CustomExecutorService {
+public class SpiProxy<T extends ISpiProvider> implements InvocationHandler, CustomExecutorService, ILogInject {
 
     private final Class<T> spiClass;
 
@@ -56,7 +55,7 @@ public class SpiProxy<T extends ISpiProvider> implements InvocationHandler, Cust
         Map<String, ? extends ISpiProvider> spiImplMap = ISpiContainer.DEFAULT_INSTANCE.lookup(spiClass);
 
         if (MapUtil.isEmpty(spiImplMap)) {
-            log.warn("SpiProxy.invoke can not find any spi impl for class:{}",this.spiClass.getSimpleName());
+            ILogInject.log.warn("SpiProxy.invoke can not find any spi impl for class:{}",this.spiClass.getSimpleName());
             return Collections.emptyList();
         }
 
@@ -84,7 +83,7 @@ public class SpiProxy<T extends ISpiProvider> implements InvocationHandler, Cust
             return _invokeService(filterSpiImplMap, spiConfigMap, method, args);
         }
 
-        log.warn("SpiProxy.invoke can not find real spi class invoke proxy function for class:{}",this.spiClass.getSimpleName());
+        ILogInject.log.warn("SpiProxy.invoke can not find real spi class invoke proxy function for class:{}",this.spiClass.getSimpleName());
         return Collections.emptyList();
     }
 

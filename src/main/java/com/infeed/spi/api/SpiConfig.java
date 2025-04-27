@@ -1,7 +1,6 @@
 package com.infeed.spi.api;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.infeed.spi.common.ILogInject;
 
 import java.io.Serializable;
 
@@ -11,9 +10,7 @@ import java.io.Serializable;
  * @author typhoon
  * @since 2024-08-15 Thursday
  */
-@Data
-@EqualsAndHashCode(exclude = {"mutex", "priority"})
-public class SpiConfig implements Serializable {
+public class SpiConfig implements Serializable, ILogInject {
     private static final long serialVersionUID = 3238647086847223476L;
 
     /**
@@ -49,4 +46,27 @@ public class SpiConfig implements Serializable {
     }
 
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isMutex() {
+        return mutex;
+    }
+
+    public void setMutex(boolean mutex) {
+        this.mutex = mutex;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
 }
